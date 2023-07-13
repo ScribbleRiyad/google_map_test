@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 void main() {
   runApp(const MyApp());
@@ -38,13 +39,52 @@ class MapTest extends StatefulWidget {
 }
 
 class _MapTestState extends State<MapTest> {
+  GoogleMapController? mapController;
+  Set<Marker> markers = {}; //markers for google map
+  LatLng showLocation = const LatLng(23.822043, 90.427622);
+  @override
+  void initState() {
+    markers.add(Marker(
+      //add marker on google map
+      markerId: MarkerId(showLocation.toString()),
+      position: showLocation, //position of marker
+      infoWindow: const InfoWindow(
+        //popup info
+        title: 'Map',
+        snippet: 'Locations',
+      ),
+      icon: BitmapDescriptor.defaultMarker, //Icon for Marker
+    ));
+
+    //you can add more markers here
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.deepPurple,
         title: const Center(
           child: Text('Google Map'),
         ),
+      ),
+      body: GoogleMap(
+        //Map widget from google_maps_flutter package
+        zoomGesturesEnabled: true, //enable Zoom in, out on map
+        initialCameraPosition: CameraPosition(
+          //innital position in map
+          target: showLocation, //initial position
+          zoom: 8.0, //initial zoom level
+        ),
+        markers: markers, //markers to show on map
+        mapType: MapType.normal, //map type
+        onMapCreated: (controller) {
+          //method called when map is created
+          setState(() {
+            mapController = controller;
+          });
+        },
       ),
     );
   }
