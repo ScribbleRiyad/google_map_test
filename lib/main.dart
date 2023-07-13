@@ -40,6 +40,6 @@ class MapTest extends StatefulWidget {
 class _MapTestState extends State<MapTest> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return const Scaffold();
   }
 }
