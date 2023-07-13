@@ -40,6 +40,12 @@ class MapTest extends StatefulWidget {
 class _MapTestState extends State<MapTest> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Center(
+          child: Text('Google Map'),
+        ),
+      ),
+    );
   }
 }
